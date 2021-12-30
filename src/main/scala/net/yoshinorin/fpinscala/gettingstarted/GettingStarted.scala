@@ -25,4 +25,16 @@ object MyModule {
     }
     go(n, 1)
   }
+
+  def fib(n: Int): Int = {
+    @tailrec
+    def loop(n: Int, prev: Int, c: Int): Int = {
+      if (n == 0) {
+        prev
+      } else {
+        loop(n - 1, c, prev + c)
+      }
+    }
+    loop(n, 0, 1)
+  }
 }
