@@ -23,6 +23,8 @@ object MyModule {
     println(formatFactorial(7))
     println(formatResult("abs", -5, abs))
     println(formatResult("factorial", 5, factorial))
+    println(findFirst(Array(1, 12, 32, 43, 50), (x: Int) => x == 32))
+    println(findFirst(Array(1, 12, 32, 43, 50), (x: Int) => x == 99))
   }
 
   def formatResult(name: String, n: Int, f: Int => Int) = {
@@ -49,5 +51,15 @@ object MyModule {
       }
     }
     loop(n, 0, 1)
+  }
+
+  def findFirst[A](as: Array[A], p: A => Boolean): Int = {
+    @tailrec
+    def loop(n: Int): Int = {
+      if (n >= as.length) -1
+      else if (p(as(n))) n
+      else loop(n + 1)
+    }
+    loop(0)
   }
 }
