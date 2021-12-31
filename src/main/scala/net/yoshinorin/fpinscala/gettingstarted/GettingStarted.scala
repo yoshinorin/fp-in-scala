@@ -25,6 +25,10 @@ object MyModule {
     println(formatResult("factorial", 5, factorial))
     println(findFirst(Array(1, 12, 32, 43, 50), (x: Int) => x == 32))
     println(findFirst(Array(1, 12, 32, 43, 50), (x: Int) => x == 99))
+    println(isSorted(Array(), (x: Int, y: Int) => x > y))
+    println(isSorted(Array(1), (x: Int, y: Int) => x > y))
+    println(isSorted(Array(1, 2, 3, 4), (x: Int, y: Int) => x >= y))
+    println(isSorted(Array(1, 3, 2, 4), (x: Int, y: Int) => x >= y))
   }
 
   def formatResult(name: String, n: Int, f: Int => Int) = {
@@ -61,5 +65,15 @@ object MyModule {
       else loop(n + 1)
     }
     loop(0)
+  }
+
+  def isSorted[A](as: Array[A], gt: (A, A) => Boolean): Boolean = {
+    @tailrec
+    def compare(x: Int): Boolean = {
+      if (x >= as.length - 1) true
+      else if (gt(as(x), as(x + 1))) false
+      else compare(x + 1)
+    }
+    compare(0)
   }
 }
