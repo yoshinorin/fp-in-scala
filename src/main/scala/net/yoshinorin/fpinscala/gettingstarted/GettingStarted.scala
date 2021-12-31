@@ -13,8 +13,21 @@ object MyModule {
     msg.format(x, abs(x))
   }
 
+  private def formatFactorial(n: Int) = {
+    val msg = "The factorial of %d is %d"
+    msg.format(n, factorial(n))
+  }
+
   def main(args: Array[String]): Unit = {
     println(formatAbs(-42))
+    println(formatFactorial(7))
+    println(formatResult("abs", -5, abs))
+    println(formatResult("factorial", 5, factorial))
+  }
+
+  def formatResult(name: String, n: Int, f: Int => Int) = {
+    val msg = "The %s of %d is %d"
+    msg.format(name, n, f(n))
   }
 
   def factorial(n: Int): Int = {
