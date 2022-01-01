@@ -22,4 +22,18 @@ object List {
     else Cons(as.head, apply(as.tail: _*))
   }
 
+  def tail[A](l: List[A]): List[A] = {
+    l match {
+      case Nil => Nil
+      case Cons(x, xs) => xs
+    }
+  }
+
+  def main(args: Array[String]): Unit = {
+    // tail
+    println(tail(List(1, 2, 3, 4)))
+    println(tail(List()))
+    println(tail(List("A", "B", "C")))
+  }
+
 }
