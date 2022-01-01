@@ -38,11 +38,22 @@ object List {
     }
   }
 
+  @tailrec
   def drop[A](l: List[A], n: Int = 0): List[A] = {
     if (n == 0) return l
     l match {
       case Nil => Nil
       case Cons(x, xs) => drop(xs, n - 1)
+    }
+  }
+
+  @tailrec
+  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = {
+    l match {
+      // こちらが正しいハズだが、判定を逆転させないと想定通りに動かない...
+      //case Cons(x, xs) if f(x) => dropWhile(xs, f)
+      case Cons(x, xs) if !f(x) => dropWhile(xs, f)
+      case _ => l
     }
   }
 
@@ -66,6 +77,11 @@ object List {
     println(drop(List(), 2))
     println(drop(List("A", "B", "C"), 2))
     println(drop(List("A", "B", "C"), 4))
+
+    // dropWhile
+    println("\n-------dropWhile")
+    println(dropWhile(List("A", "B", "C", "D", "E"), (x: String) => x == "D"))
+    println(dropWhile(List(1, 3, 2, 3, 5), (x: Int) => x == 3))
   }
 
 }
