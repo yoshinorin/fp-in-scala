@@ -29,11 +29,25 @@ object List {
     }
   }
 
+  def setHead[A](v: A, l: List[A]): List[A] = {
+    l match {
+      case Nil => Cons(v, Nil)
+      case Cons(x, xs) => Cons(v, xs)
+    }
+  }
+
   def main(args: Array[String]): Unit = {
     // tail
+    println("\n-------tail")
     println(tail(List(1, 2, 3, 4)))
     println(tail(List()))
     println(tail(List("A", "B", "C")))
+
+    // setHead
+    println("\n-------setHead")
+    println(setHead(1, List(2, 3, 4, 5)))
+    println(setHead(1, List()))
+    println(setHead("A", List("B", "C", "D")))
   }
 
 }
