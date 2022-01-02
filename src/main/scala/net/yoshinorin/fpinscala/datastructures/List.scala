@@ -47,6 +47,7 @@ object List {
     }
   }
 
+  /*
   @tailrec
   def dropWhile[A](l: List[A], f: A => Boolean): List[A] = {
     l match {
@@ -55,6 +56,31 @@ object List {
       case Cons(x, xs) if !f(x) => dropWhile(xs, f)
       case _ => l
     }
+  }
+   */
+
+  // こうすることでカリー化される
+  // 呼び出し側は第2引数の型アノテーションが不要になる
+  def dropWhile[A](l: List[A])(f: A => Boolean): List[A] = {
+    l match {
+      case Cons(x, xs) if !f(x) => dropWhile(xs)(f)
+      case _ => l
+    }
+  }
+
+  def foldRight[A, B](as: List[A], z: B)(f: (A, B) => B): B = {
+    as match {
+      case Nil => z
+      case Cons(x, xs) => f(x, foldRight(xs, z)(f))
+    }
+  }
+
+  def sum2(ns: List[Int]) = {
+    foldRight(ns, 0)((x, y) => x + y)
+  }
+
+  def product2(ns: List[Int]) = {
+    foldRight(ns, 1.0)(_ * _) // (_ * _) は (x, y) => x * y の簡易表記
   }
 
   def main(args: Array[String]): Unit = {
@@ -80,8 +106,8 @@ object List {
 
     // dropWhile
     println("\n-------dropWhile")
-    println(dropWhile(List("A", "B", "C", "D", "E"), (x: String) => x == "D"))
-    println(dropWhile(List(1, 3, 2, 3, 5), (x: Int) => x == 3))
+    //println(dropWhile(List(1, 3, 2, 3, 5), (x: Int) => x == 3))  //
+    println(dropWhile(List(1, 3, 2, 3, 5))(x => x == 3))
   }
 
 }
