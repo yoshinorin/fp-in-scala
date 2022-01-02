@@ -83,6 +83,25 @@ object List {
     foldRight(ns, 1.0)(_ * _) // (_ * _) は (x, y) => x * y の簡易表記
   }
 
+  def length[A](l: List[A]): Int = {
+    foldRight(l, 0)((_, acc) => acc + 1)
+  }
+
+  def foldLeft[A, B](l: List[A], acc: B)(f: (B, A) => B): B = {
+    l match {
+      case Nil => acc
+      case Cons(h, t) => foldLeft(t, f(acc, h))(f)
+    }
+  }
+
+  def sum3(ns: List[Int]): Int = {
+    foldLeft(ns, 0)(_ + _)
+  }
+
+  def product3(ns: List[Double]): Double = {
+    foldLeft(ns, 1.0)(_ * _)
+  }
+
   def main(args: Array[String]): Unit = {
     // tail
     println("\n-------tail")
@@ -108,6 +127,17 @@ object List {
     println("\n-------dropWhile")
     //println(dropWhile(List(1, 3, 2, 3, 5), (x: Int) => x == 3))  //
     println(dropWhile(List(1, 3, 2, 3, 5))(x => x == 3))
-  }
 
+    // exercise 3.8
+    //println(foldRight(List(1, 2, 3), Nil)(Cons(_, _)))
+
+    // length
+    println("\n-------length")
+    println(length(List("A", "B", "C", "D")))
+
+    // foldLeft - sum
+    println("\n-------foldleft sum")
+    println(sum3(List(2, 3, 45)))
+    println(product3(List(2, 2, 3)))
+  }
 }
