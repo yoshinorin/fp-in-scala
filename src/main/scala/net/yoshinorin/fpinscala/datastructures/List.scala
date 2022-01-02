@@ -102,6 +102,11 @@ object List {
     foldLeft(ns, 1.0)(_ * _)
   }
 
+  def reverse[A](ls: List[A]): List[A] = {
+    // foldLeft(ls, List())((acc, h) => Cons(h, acc)) だと型推論できない（？）のかコンパイルエラーになる
+    foldLeft(ls, List[A]())((acc, h) => Cons(h, acc))
+  }
+
   def main(args: Array[String]): Unit = {
     // tail
     println("\n-------tail")
@@ -139,5 +144,9 @@ object List {
     println("\n-------foldleft sum")
     println(sum3(List(2, 3, 45)))
     println(product3(List(2, 2, 3)))
+
+    // foldLeft - sum
+    println("\n-------foldleft reverse")
+    println(reverse(List(2, 3, 4, 5, 6)))
   }
 }
