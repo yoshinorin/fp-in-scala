@@ -107,6 +107,19 @@ object List {
     foldLeft(ls, List[A]())((acc, h) => Cons(h, acc))
   }
 
+  def incrementOne(ls: List[Int]): List[Int] = {
+    foldRight(ls, Nil: List[Int])((i, acc) => Cons(i + 1, acc))
+    //reverse(foldLeft(ls, Nil: List[Int])((acc, i) => Cons(i + 1, acc)))
+  }
+
+  def toString(ls: List[Double]): List[String] = {
+    foldRight(ls, Nil: List[String])((d, acc) => Cons(d.toString, acc))
+  }
+
+  def map[A, B](ls: List[A])(f: A => B): List[B] = {
+    foldRight(ls, Nil: List[B])((x, xs) => Cons(f(x), xs))
+  }
+
   def main(args: Array[String]): Unit = {
     // tail
     println("\n-------tail")
@@ -148,5 +161,19 @@ object List {
     // foldLeft - sum
     println("\n-------foldleft reverse")
     println(reverse(List(2, 3, 4, 5, 6)))
+
+    // foldLeft - incrementOne
+    println("\n-------foldRight incrementOne")
+    println(incrementOne(List(2, 4, 6, 8)))
+
+    // foldLeft - Double To String
+    println("\n-------foldRight DoubleToString")
+    println(toString(List(2.0, 2.1, 2.2)))
+
+    // map
+    println("\n-------map")
+    println(map(List(1, 2, 3, 4))(x => x.toString()))
+    println(map(List(1, 2, 3, 4))(x => x * 2))
+
   }
 }
