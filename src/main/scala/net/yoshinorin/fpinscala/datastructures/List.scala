@@ -24,6 +24,13 @@ object List {
     else Cons(as.head, apply(as.tail: _*))
   }
 
+  def append[A](a1: List[A], a2: List[A]): List[A] = {
+    a1 match {
+      case Nil => a2
+      case Cons(h, t) => Cons(h, append(t, a2))
+    }
+  }
+
   def tail[A](l: List[A]): List[A] = {
     l match {
       case Nil => Nil
@@ -120,6 +127,23 @@ object List {
     foldRight(ls, Nil: List[B])((x, xs) => Cons(f(x), xs))
   }
 
+  def filter[A](ls: List[A])(f: A => Boolean): List[A] = {
+    foldRight(ls, Nil: List[A])((x, y) => {
+      if (f(x)) {
+        y
+      } else {
+        Cons(x, y)
+      }
+    })
+  }
+
+  def concat[A](l: List[List[A]]): List[A] = {
+    foldRight(l, Nil: List[A])(append)
+  }
+
+  def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] = {
+    concat(map(as)(f))
+  }
 
   def main(args: Array[String]): Unit = {
     // Nothing to to do

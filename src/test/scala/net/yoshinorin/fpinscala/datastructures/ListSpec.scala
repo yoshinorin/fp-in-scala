@@ -75,6 +75,17 @@ class ListSpec extends AnyWordSpec {
       println(map(List(1, 2, 3, 4))(x => x * 2))
     }
 
+    "filter" in {
+      println("\n-------filter")
+      println(filter(List(1, 2, 2, 4, 5, 6, 2))(x => x == 2))
+    }
+
+    "flatMap" in {
+      println("\n-------flatMap")
+      println(flatMap(List(List(1, 2, 3), List(4, 5, 6)))(x => x))
+      println(flatMap(List(1, 2, 3))(x => List(x, x)))
+    }
+
   }
 
 }
