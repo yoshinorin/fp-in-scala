@@ -145,6 +145,24 @@ object List {
     concat(map(as)(f))
   }
 
+  def filterViaFlatMap[A, B](as: List[A])(f: A => Boolean): List[A] = {
+    flatMap(as)(x => {
+      if (f(x)) {
+        Nil
+      } else {
+        List(x)
+      }
+    })
+  }
+
+  def addPairList(ls1: List[Int], ls2: List[Int]): List[Int] = {
+    (ls1, ls2) match {
+      case (_, Nil) => Nil
+      case (Nil, _) => Nil
+      case (Cons(a, b), Cons(c, d)) => Cons(a + c, addPairList(b, d))
+    }
+  }
+
   def main(args: Array[String]): Unit = {
     // Nothing to to do
   }

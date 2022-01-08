@@ -86,6 +86,17 @@ class ListSpec extends AnyWordSpec {
       println(flatMap(List(1, 2, 3))(x => List(x, x)))
     }
 
+    "filter via flatMap" in {
+      println("\n-------filter via flatMap")
+      println(filterViaFlatMap(List(1, 2, 3, 4, 5, 2, 2, 6))(x => x == 2))
+    }
+
+    "addPariList - int" in {
+      println("\n-------addPairList int")
+      println(addPairList(List(1, 2, 3), List(4, 5, 6)))
+      println(addPairList(List(9, 8), List(3, 2, 1)))
+    }
+
   }
 
 }
