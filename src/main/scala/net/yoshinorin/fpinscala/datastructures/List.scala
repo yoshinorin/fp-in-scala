@@ -163,6 +163,14 @@ object List {
     }
   }
 
+  def zipWith[A, B, C](ls1: List[A], ls2: List[B])(f: (A, B) => C): List[C] = {
+    (ls1, ls2) match {
+      case (_, Nil) => Nil
+      case (Nil, _) => Nil
+      case (Cons(a, b), Cons(c, d)) => Cons(f(a, c), zipWith(b, d)(f))
+    }
+  }
+
   def main(args: Array[String]): Unit = {
     // Nothing to to do
   }

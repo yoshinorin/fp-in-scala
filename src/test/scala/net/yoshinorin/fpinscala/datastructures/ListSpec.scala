@@ -97,6 +97,11 @@ class ListSpec extends AnyWordSpec {
       println(addPairList(List(9, 8), List(3, 2, 1)))
     }
 
+    "zipWith" in {
+      println("\n-------zipWith")
+      println(zipWith(List("A", "B", "C"), List("D", "E", "F"))((x: String, y: String) => x + " " + y))
+    }
+
   }
 
 }
