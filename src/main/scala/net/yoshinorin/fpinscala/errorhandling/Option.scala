@@ -1,6 +1,14 @@
 package net.yoshinorin.fpinscala.errorhandling
 
 sealed trait Option[+A] {
+
+  def Try[A](a: => A): Option[A] = {
+    try Some(a)
+    catch {
+      case e: Exception => None
+    }
+  }
+
   def map[B](f: A => B): Option[B] = this match {
     case None => None
     case Some(x) => Some(f(x))
@@ -23,6 +31,24 @@ sealed trait Option[+A] {
   def filter(f: A => Boolean): Option[A] = this match {
     case Some(x) if f(x) => this
     case _ => None
+  }
+
+  def map2[A, B, C](a: Option[A], b: Option[B])(f: (A, B) => C): Option[C] = {
+    a flatMap (aa => b map (bb => f(aa, bb)))
+  }
+
+  def sequece[A](a: List[Option[A]]): Option[List[A]] = {
+    a match {
+      case Nil => Some(Nil)
+      case h :: t => h flatMap (hh => sequece(t) map (hh :: _))
+    }
+  }
+
+  def traverse[A, B](a: List[A])(f: A => Option[B]): Option[List[B]] = {
+    a match {
+      case Nil => Some(Nil)
+      case h :: t => map2(f(h), traverse(t)(f))(_ :: _)
+    }
   }
 
 }
