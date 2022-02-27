@@ -16,7 +16,6 @@ trait Stream[+A] {
   }
 
   def take(n: Int): Stream[A] = this match {
-    case Cons(h, t) if n == 1 => Stream.cons(h(), empty)
     case Cons(h, t) if n > 1 => Stream.cons(h(), t().take(n - 1))
     case _ => empty
   }
@@ -43,6 +42,9 @@ trait Stream[+A] {
     case _ => z
   }
 
+  def forAll(f: A => Boolean): Boolean = {
+    foldRight(true)((a, b) => f(a) && b)
+  }
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]

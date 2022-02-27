@@ -32,6 +32,11 @@ class StreamSpec extends AnyWordSpec {
       println(s.takeWhile(x => x != "c").toList)
     }
 
+    "forAll" in {
+      println("\n-------- forAll")
+      val s = Stream("a", "a", "c", "a", "e")
+      println(s.takeWhile(x => x == "a").toList)
+    }
   }
 
 }
