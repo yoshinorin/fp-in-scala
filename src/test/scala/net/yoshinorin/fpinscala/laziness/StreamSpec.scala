@@ -37,6 +37,34 @@ class StreamSpec extends AnyWordSpec {
       val s = Stream("a", "a", "c", "a", "e")
       println(s.takeWhile(x => x == "a").toList)
     }
+
+    "ones" in {
+      println("\n-------- ones")
+      val o = Stream.ones.take(5).toList
+      println(o)
+      val o2 = Stream.ones.forAll(_ != 1)
+      println(o2)
+      // 終了しない式なのでスタックオーバーフローになる
+      // val o2 = Stream.ones.forAll(_ == 1)
+    }
+
+    "constant" in {
+      println("\n-------- constant")
+      val s = Stream()
+      println(s.constant("x"))
+    }
+
+    "from" in {
+      println("\n-------- from")
+      val s = Stream()
+      println(s.from(1))
+    }
+
+    "fibs" in {
+      println("\n-------- fibs")
+      val s = Stream()
+      println(s.fibs().take(10).toList)
+    }
   }
 
 }

@@ -1,6 +1,6 @@
 package net.yoshinorin.fpinscala.laziness
 
-import net.yoshinorin.fpinscala.laziness.Stream.empty
+import net.yoshinorin.fpinscala.laziness.Stream.{cons, empty}
 
 import scala.annotation.tailrec
 
@@ -45,6 +45,19 @@ trait Stream[+A] {
   def forAll(f: A => Boolean): Boolean = {
     foldRight(true)((a, b) => f(a) && b)
   }
+
+  // 指定した値の無限ストリームを返す
+  def constant[A](a: A): Stream[A] = {
+    Stream.cons(a, constant(a))
+  }
+
+  def from(n: Int): Stream[Int] = {
+    Stream.cons(n, from(n + 1))
+  }
+
+  def fibs(n: Int = 0, a: Int = 1): Stream[Int] = {
+    cons(n, fibs(a, n + a))
+  }
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
@@ -67,4 +80,6 @@ object Stream {
       cons(as.head, apply(as.tail: _*))
     }
   }
+
+  val ones: Stream[Int] = Stream.cons(1, ones)
 }
