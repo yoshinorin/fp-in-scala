@@ -52,12 +52,28 @@ class StreamSpec extends AnyWordSpec {
       println("\n-------- constant")
       val s = Stream()
       println(s.constant("x"))
+      println(s.constant("x").take(5).toList)
+    }
+
+    "constant unfold" in {
+      println("\n-------- constant with unfold")
+      val s = Stream()
+      println(s.constantWithUnfold("unfold"))
+      println(s.constantWithUnfold("unfold").take(5).toList)
     }
 
     "from" in {
       println("\n-------- from")
       val s = Stream()
       println(s.from(1))
+      println(s.from(1).take(10).toList)
+    }
+
+    "from unfold" in {
+      println("\n-------- from with unfold")
+      val s = Stream()
+      println(s.fromWithUnfold(3))
+      println(s.fromWithUnfold(3).take(10).toList)
     }
 
     "fibs" in {
@@ -65,6 +81,13 @@ class StreamSpec extends AnyWordSpec {
       val s = Stream()
       println(s.fibs().take(10).toList)
     }
+
+    "fibs unfold" in {
+      println("\n-------- fibs with unfold")
+      val s = Stream()
+      println(s.fibsWithUnfold().take(10).toList)
+    }
+
   }
 
 }

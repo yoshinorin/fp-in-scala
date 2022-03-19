@@ -58,6 +58,28 @@ trait Stream[+A] {
   def fibs(n: Int = 0, a: Int = 1): Stream[Int] = {
     cons(n, fibs(a, n + a))
   }
+
+  def unfold[A, S](z: S)(f: S => Option[(A, S)]): Stream[A] = {
+    f(z) match {
+      case Some((h, s)) => cons(h, unfold(s)(f))
+      case None => Empty
+    }
+  }
+
+  def fibsWithUnfold(n: Int = 0, a: Int = 1): Stream[Int] = {
+    unfold((n, a)) {
+      case (x, y) => Some((x, (y, x + y)))
+    }
+  }
+
+  def fromWithUnfold(n: Int): Stream[Int] = {
+    unfold(n)(n => Some(n, n + 1))
+  }
+
+  def constantWithUnfold[A](a: A): Stream[A] = {
+    unfold(a)(a => Some(a, a))
+  }
+
 }
 case object Empty extends Stream[Nothing]
 case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
