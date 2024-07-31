@@ -37,7 +37,7 @@ class ListSpec extends AnyWordSpec {
     "dropWhile" in {
       // dropWhile
       println("\n-------dropWhile")
-      //println(dropWhile(List(1, 3, 2, 3, 5), (x: Int) => x == 3))  //
+      // println(dropWhile(List(1, 3, 2, 3, 5), (x: Int) => x == 3))  //
       println(dropWhile(List(1, 3, 2, 3, 5))(x => x == 3))
     }
 

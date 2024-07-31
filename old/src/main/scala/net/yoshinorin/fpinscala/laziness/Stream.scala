@@ -67,8 +67,8 @@ trait Stream[+A] {
   }
 
   def fibsWithUnfold(n: Int = 0, a: Int = 1): Stream[Int] = {
-    unfold((n, a)) {
-      case (x, y) => Some((x, (y, x + y)))
+    unfold((n, a)) { case (x, y) =>
+      Some((x, (y, x + y)))
     }
   }
 

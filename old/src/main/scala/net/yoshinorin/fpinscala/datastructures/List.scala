@@ -116,7 +116,7 @@ object List {
 
   def incrementOne(ls: List[Int]): List[Int] = {
     foldRight(ls, Nil: List[Int])((i, acc) => Cons(i + 1, acc))
-    //reverse(foldLeft(ls, Nil: List[Int])((acc, i) => Cons(i + 1, acc)))
+    // reverse(foldLeft(ls, Nil: List[Int])((acc, i) => Cons(i + 1, acc)))
   }
 
   def toString(ls: List[Double]): List[String] = {

@@ -22,7 +22,7 @@ class TreeSpec extends AnyWordSpec {
       Branch(Leaf(6),Leaf(3))
       Leaf(6)
       Leaf(3)
-     */
+       */
     }
 
     "depth" in {
